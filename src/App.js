@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) { // render보다 일찍 실행해서 component의 초기화를 담당
     super(props);
     this.state = {
-      mode:'read',
+      mode:'welcome',
       subject:{title:'WEB', sub:'World Wide Web!'},
       welcome:{title:'Welcome', desc:'Hello, React!'},
       contents:[
@@ -38,21 +38,12 @@ class App extends Component {
           }.bind(this)}
         >
         </Subject>
-        {/* <header>
-          <h1><a href="/" onClick={function(e) {
-            console.log('event in', this);
-            e.preventDefault();
-            return;
-            console.log(e);
-            e.preventDefault();
-            // this.state.mode = 'welcome'; // 동적으로 state의 값을 변경할 때 이렇게 하면 안됨.
-            this.setState({
-              mode:'welcome'
-            });
-          }}>{this.state.subject.title}</a></h1>
-          {this.state.subject.sub}
-        </header> */}
-        <TOC data={this.state.contents}></TOC>
+        <TOC
+          onChangePage={function() {
+            this.setState({mode:'read'});
+          }.bind(this)}
+          data={this.state.contents}
+        ></TOC>
         <Content title={_title} desc={_desc}></Content>
       </div>
     )
