@@ -9,6 +9,7 @@ import './App.css';
 class App extends Component {
   constructor(props) { // render보다 일찍 실행해서 component의 초기화를 담당
     super(props);
+    this.max_content_id = 3;
     this.state = {
       mode:'welcome',
       selected_content_id:2,
@@ -40,10 +41,19 @@ class App extends Component {
         i += 1;
       }
       _article = <ReadContent title={_title} desc={_desc}></ReadContent>
-    } else if(this.state.mode ==='create') {
+    } else if(this.state.mode === 'create') {
       _article = <CreateContent onSubmit={function(_title, _desc) {
+        this.max_content_id += 1;
+        this.state.contents.push(
+          {id:this.max_content_id, title:_title, desc:_desc}
+        );
+        this.setState({
+          contents:this.state.contents
+        });
         console.log(_title, _desc);
       }.bind(this)}></CreateContent>
+    } else if(this.state.mode === 'delete') {
+      
     }
     return (
       <div className="App">

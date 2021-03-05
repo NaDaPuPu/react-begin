@@ -9,6 +9,7 @@ class CreateContent extends Component {
           <form action="/create_process" method="post"
             onSubmit={function(e){
               e.preventDefault();
+              alert("추가되었습니다.");
               this.props.onSubmit(
                 e.target.title.value,
                 e.target.desc.value
