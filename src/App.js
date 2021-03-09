@@ -105,9 +105,28 @@ class App extends Component {
           data={this.state.contents}
         ></TOC>
         <Control onChangeMode={function(_mode) {
-          this.setState({
-            mode:_mode
-          });
+          if(_mode === 'delete') {
+            if(window.confirm('Are you really want to delete?')) { // 삭제 여부를 물어봄
+              var _contents = Array.from(this.state.contents);
+              var i = 0;
+              while(i < _contents.length) {
+                if(_contents[i].id === this.state.selected_content_id) {
+                  _contents.splice(i, 1);
+                  break;
+                }
+                i += 1;
+              }
+              this.setState({
+                mode:'welcome',
+                contents:_contents
+              });
+              alert('Delete Complete');
+            }
+          } else {
+            this.setState({
+              mode:_mode
+            });
+          }
         }.bind(this)}></Control>
         {this.getContent()}
       </div>
